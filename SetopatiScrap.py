@@ -19,21 +19,21 @@ for atag in h3results:
     if (title == '\n'):
         continue
     print(str(atag["href"]))
-    titlesList.append(str(title))
+    # titlesList.append(str(title))
     titles.append([atag["href"],str(title)])
 
 # titles = set(titles)
-titlesList = set(titlesList)
+# titlesList = set(titlesList)
 # titles = list(titles)
-titlesList = list(titlesList)
+# titlesList = list(titlesList)
 # titles = ''.join(titles)
 print(titles)
-print(titlesList)
-finalList = []
-for row in titlesList:
-    finalList.append([row])
+# print(titlesList)
+# finalList = []
+# for row in titlesList:
+#     finalList.append([row])
 
-print(finalList)
+# print(finalList)
 import pickle
 with open('setopati.pkl', 'wb') as f:
     pickle.dump(titles, f)

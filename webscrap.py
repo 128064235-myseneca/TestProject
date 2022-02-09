@@ -4,6 +4,7 @@ vec = pickle.load(open("vectorizer.pickle", 'rb'))
 model_bayes = pickle.load(open('finalized_model.sav', 'rb'))
 model_svm = pickle.load(open('svm_model.sav', 'rb'))
 print(model_bayes.predict(vec.transform(['not a good day for nepal'])))
+classes = ['neutral', 'positive', 'negative']
 def predict_svm(headings):
     print(headings)
     predections = []
@@ -97,6 +98,19 @@ def home():
 @app.route("/about")
 def about():
     return render_template('about.html')
+
+@app.route("/analysis", methods = ['POST','GET'])
+def analysis():
+    if request.method == 'POST':
+
+        userHeadline = request.form.get('userHeadline')
+        print(userHeadline)
+        svm = model_svm.predict([userHeadline])
+        bayes = model_bayes.predict(vec.transform([userHeadline]))
+
+
+        return render_template('analysis.html', content = ["Result of svm is " + classes[svm[0]], "Result of bayes is "+classes[bayes[0]]])
+    return render_template('analysis.html', content = ["",""])
 if __name__ == '__main__':
    app.run()
 
